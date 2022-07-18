@@ -1,20 +1,34 @@
-const db = require('../database/models/user');
+const Joi = require('joi');
+const { User } = require('../database/models');
 const jwtService = require('./jwtService');
 
 const userService = {
-    login: async (email, password) => {
-        const user = await db.createUser.findOne({
-            where: { email, password },
-        });
+    validateBody: (data) => {
+        const schema = Joi.object({
+            email: Joi.string().email().required(),
+            password: Joi.string().required(),
+          });
+      
+          const { error, value } = schema.validate(data);
 
-        if (password !== user.password) {
-            const e = new Error('Invalid fields');
-            e.name = 'ValidationError';
-            throw e;
+        if (error) {
+            const e = new Error('Some required fields are missing');
+           e.status = 400;
+           throw e;
         }
 
-        const token = jwtService.createToken(email);
+        return value;
+    },
+    login: async (email, password) => {
+        const user = await User.findOne({ where: { email, password } });
+        if (!user) {
+           const error = new Error('Invalid fields');
+           error.status = 400;
+           throw error;
+        }
 
+        const token = jwtService.createToken(user.email);
+        
         return token;
     },
 };

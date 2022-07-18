@@ -2,13 +2,14 @@ const userService = require('../Services/userService');
 
 const userController = {
     login: async (req, res) => {
-        const { email, password } = req.body;
-
-        if (email === '' || password === '') {
-            res.status(400).json({ message: 'Some required fields are missing' });
+        let token = {};
+    try {
+        const { email, password } = userService.validateBody(req.body);
+    
+        token = await userService.login(email, password);
+    } catch (error) {
+        return res.status(error.status).json({ message: error.message });
         }
-
-       const token = await userService.login(email, password);
 
        res.status(200).json({ token });
     },
