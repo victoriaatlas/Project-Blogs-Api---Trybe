@@ -40,6 +40,11 @@ const userService = {
 
         return token;
     },
+    listAll: async () => {
+        const allUser = await User.findAll();
+
+        return allUser;
+    },
 };
 
 module.exports = userService;

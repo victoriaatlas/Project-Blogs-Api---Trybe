@@ -1,6 +1,9 @@
 const express = require('express');
 const userController = require('./controllers/userController');
 
+const loginRouter = require('./routers/loginRouter');
+const userRouter = require('./routers/userRouter');
+
 // ...
 
 const app = express();
@@ -8,9 +11,11 @@ const app = express();
 app.use(express.json());
 
 // ...
-app.post('/login', userController.login);
+app.use('/login', loginRouter);
 
-app.post('/user', userController.createUser);
+app.use(userController.validateToken);
+
+app.use('/user', userRouter);
 
 /* app.use((error, req, res, _next) => {
     const { name, message } = error;

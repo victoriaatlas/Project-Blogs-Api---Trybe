@@ -8,6 +8,16 @@ const jwtService = {
         const token = jtw.sign(user, process.env.JWT_SECRET);
         return token;
     },
+    validateToken: (token) => {
+        try {
+            const data = jtw.verify(token, process.env.JWT_SECRET);
+            return data;
+        } catch (error) {
+            const e = error;
+            e.status = 401;
+            throw e;
+        }
+    },
 };
 
 module.exports = jwtService;
