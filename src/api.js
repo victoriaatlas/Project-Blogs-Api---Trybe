@@ -10,7 +10,9 @@ app.use(express.json());
 // ...
 app.post('/login', userController.login);
 
-app.use((error, req, res, _next) => {
+app.post('/user', userController.createUser);
+
+/* app.use((error, req, res, _next) => {
     const { name, message } = error;
     switch (name) {
         case 'InvalidData':
@@ -19,7 +21,7 @@ app.use((error, req, res, _next) => {
         default: 
         res.status(500).json({ message });
     }
-});
+}); */
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
