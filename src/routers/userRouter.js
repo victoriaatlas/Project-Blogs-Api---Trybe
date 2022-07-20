@@ -1,10 +1,12 @@
-/* const { Router } = require('express');
+const { Router } = require('express');
 
 const userController = require('../controllers/userController');
+const validateToken = require('../Services/jwtService');
 
 const router = Router();
 
-router.post('/user', userController.createUser);
-router.get('/user', userController.listAll);
+router.post('/', userController.createUser);
+router.get('/', validateToken.validateToken, userController.listAll);
+router.get('/:id', validateToken.validateToken, userController.getById);
 
-module.exports = router; */
+module.exports = router; 
