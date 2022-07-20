@@ -42,9 +42,8 @@ const userController = {
     },
     getById: async (req, res) => {
         try {
-            const { id } = req.body;
+            const { id } = req.params;
             const user = await userService.getById(id);
-            console.log(user, 'onde eu to?');
             res.status(200).json(user);
         } catch (error) {
             res.status(error.status).json({ message: error.message });
