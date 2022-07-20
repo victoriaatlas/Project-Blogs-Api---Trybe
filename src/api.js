@@ -1,8 +1,9 @@
 const express = require('express');
 const userController = require('./controllers/userController');
+const validateToken = require('./Services/jwtService');
 
-const loginRouter = require('./routers/loginRouter');
-const userRouter = require('./routers/userRouter');
+// const loginRouter = require('./routers/loginRouter');
+// const userRouter = require('./routers/userRouter');
 
 // ...
 
@@ -11,12 +12,12 @@ const app = express();
 app.use(express.json());
 
 // ...
-app.use('/login', loginRouter);
+app.post('/login', userController.login);
 
-app.use(userController.validateToken);
+app.post('/user', userController.createUser);
+// app.use(validatorToken.validateToken);
 
-app.use('/user', userRouter);
-
+app.get('/user', validateToken.validateToken, userController.listAll);
 /* app.use((error, req, res, _next) => {
     const { name, message } = error;
     switch (name) {

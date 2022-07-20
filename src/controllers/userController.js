@@ -1,6 +1,6 @@
+// const jwtService = require('../Services/jwtService');
 const loginService = require('../Services/loginService');
 const userService = require('../Services/userService');
-const jwtService = require('../Services/jwtService');
 
 const userController = {
     login: async (req, res) => {
@@ -35,17 +35,10 @@ const userController = {
         
         res.status(201).json({ token });
     },
-    validateToken: (req, _res, next) => {
-        const { authorization } = req.headers;
-        
-        jwtService.validateToken(authorization);
-        
-        next();
-    },
     listAll: async (_req, res) => {
-        const allUser = await userService.listAll();
-    
-        res.status(200).json({ allUser });
+        const users = await userService.listAll();
+
+        res.status(200).json(users);
     },
 };
 
