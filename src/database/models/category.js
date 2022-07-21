@@ -9,6 +9,9 @@ const Category = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
+  }, {
+    tableName: 'Categories',
+    timestamps: false
   });
 
   return Category;

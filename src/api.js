@@ -4,8 +4,8 @@ const express = require('express');
 // const validateToken = require('./Services/jwtService');
 
 const loginRouter = require('./routers/loginRouter');
- const userRouter = require('./routers/userRouter');
-
+const userRouter = require('./routers/userRouter');
+const categoryRouter = require('./routers/categoryRouter');
 // ...
 
 const app = express();
@@ -15,7 +15,10 @@ app.use(express.json());
 // ...
 // app.post('/login', userController.login);
 app.use('/login', loginRouter);
+
 app.use('/user', userRouter);
+
+app.use('/categories', categoryRouter);
 // app.post('/user', userController.createUser);
 // app.use(validatorToken.validateToken);
 
