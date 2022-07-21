@@ -6,6 +6,11 @@ const categoryService = {
 
         return newCategory;
     },
+    listAll: async () => {
+        const all = await Category.findAll();
+
+        return all;
+    },
 };
 
 module.exports = categoryService;

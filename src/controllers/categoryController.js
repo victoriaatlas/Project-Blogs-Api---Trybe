@@ -11,6 +11,11 @@ const categoryContoller = {
         
         res.status(201).json(category);
     },
+    listAll: async (req, res) => {
+        const allCategories = await categoryService.listAll();
+
+        res.status(200).json(allCategories);
+    },
 };
 
 module.exports = categoryContoller;
