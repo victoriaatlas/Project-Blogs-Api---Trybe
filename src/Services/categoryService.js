@@ -11,6 +11,16 @@ const categoryService = {
 
         return all;
     },
+    idHunter: async (ids) => {
+        const categoriesIds = await Promise.all(ids.map((id) => {
+            const hunter = Category.findByPk(id);
+            return hunter;
+        }));
+        const categories = categoriesIds.filter((c) => c !== null);
+        const values = categories.map(({ dataValues }) => dataValues.id);
+        return values;
+    },
 };
 
+// const categories = filterCategories.map(({ dataValues }) => dataValues.id);
 module.exports = categoryService;

@@ -58,6 +58,14 @@ const userService = {
 
         return findUser;
     },
+    emailFinder: async (email) => {
+        if (!email) return null;
+
+        const user = await User.findOne({ attributes: { exclude: ['displayName', 'image'] },
+         where: { email } });
+
+         return user.id;
+    },
 };
 
 module.exports = userService;

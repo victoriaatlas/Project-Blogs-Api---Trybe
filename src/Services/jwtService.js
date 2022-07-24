@@ -8,7 +8,7 @@ const jwtService = {
         const token = jwt.sign(user, process.env.JWT_SECRET);
         return token;
     },
-    validateToken: (req, res, next) => {
+    validateToken: async (req, res, next) => {
         const token = req.headers.authorization;
 
         if (!token) {
@@ -16,14 +16,14 @@ const jwtService = {
         }
 
         try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            res.user = decoded.data;
+           const decoded = jwt.verify(token, process.env.JWT_SECRET);
+           req.user = decoded;
         } catch (error) {
             return res.status(401).json({ message: 'Expired or invalid token' });
         }
-       
         next();
     },
+
 };
 
 module.exports = jwtService;
