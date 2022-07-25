@@ -15,8 +15,13 @@ const postController = {
         if (!matchId.length) return res.status(400).json({ message: '"categoryIds" not found' });
 
         const newPost = await postService.createPost(title, content, categoryIds, userId);
-        console.log(newPost, 'soue eu?');
+        // console.log(newPost, 'soue eu?');
         res.status(201).json(newPost);
+    },
+    getPost: async (req, res) => {
+        const post = await postService.getPost();
+
+        res.status(200).json(post);
     },
 };
 
