@@ -7,5 +7,6 @@ const router = Router();
 
 router.post('/', jwtService.validateToken, postController.createPost);
 router.get('/', jwtService.validateToken, postController.getPost);
+router.get('/:id', jwtService.validateToken, postController.getId);
 
 module.exports = router; 

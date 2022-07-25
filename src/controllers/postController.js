@@ -23,6 +23,16 @@ const postController = {
 
         res.status(200).json(post);
     },
+    getId: async (req, res) => {
+        const { id } = req.params;
+        const post = await postService.getId(id);
+        console.log(post);
+        console.log(id);
+
+        if (!post) return res.status(404).json({ message: 'Post does not exist' });
+
+        res.status(200).json(post);
+    },
 };
 
 /*
